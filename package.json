@@ -1,0 +1,20 @@
+{
+  "name": "@anzar/build-browser",
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": {
+    "name": "Vetési Zoltán",
+    "email": "vetesi.zoltan@gmail.com"
+  },
+  "babel": {
+    "presets": [
+      "env"
+    ]
+  },
+  "dependencies": {
+    "@anzar/build": "ngAnzar/build",
+    "electron": "^1.8.4",
+    "html-webpack-plugin": "^3.2.0",
+    "webpack-dev-server": "^3.1.3"
+  }
+}
