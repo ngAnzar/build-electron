@@ -1,5 +1,5 @@
 {
-  "name": "@anzar/build-browser",
+  "name": "@anzar/build-electron",
   "version": "1.0.0",
   "license": "MIT",
   "author": {
