@@ -13,8 +13,9 @@ if (~args._.indexOf("serve")) {
     build()
 }
 
-const config = require(process.env.anzar_config_path).default
-const electronMain = config.get("main").entry.main
+// const config = require(process.env.anzar_config_path).default
+// const electronMain = config.get("main").entry.main
+const electronMain = path.join(process.cwd(), args.main)
 
 function serve() {
     let cancel = cancellation()
@@ -34,7 +35,14 @@ function serve() {
 
 
 function build() {
+    let cancel = cancellation()
 
+    require("async-exit-hook")(() => {
+        cancel.cancel()
+    })
+
+    startBuild(cancel, ["--config", process.env.anzar_config_path])
+        .catch(() => cancel.cancel())
 }
 
 

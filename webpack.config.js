@@ -13,6 +13,8 @@ options.setAll({
 })
 
 
+let __DEV_SERVER__ = null
+
 export default config.multi("@anzar/build", {
     renderer: {
         target: "electron-renderer",
@@ -34,13 +36,13 @@ export default config.multi("@anzar/build", {
             port: 4201,
             hot: options.hot,
             historyApiFallback: true,
-            clientLogLevel: "error",
-            stats: "errors-only"
+            // clientLogLevel: "error",
+            // stats: "errors-only"
         },
 
         plugins: [
             new webpack.HotModuleReplacementPlugin(),
-            new webpack.NamedModulesPlugin(),
+            // new webpack.NamedModulesPlugin(),
             new HtmlWebpackPlugin({
                 chunksSortMode: "dependency",
                 inject: false,
@@ -50,17 +52,23 @@ export default config.multi("@anzar/build", {
     }
 }).define((defs, cfg, key) => {
     if (key === "renderer") {
-        defs.set("__DEV_SERVER__", () => {
-            if (options.isServing && cfg.devServer) {
-                let dvs = cfg.devServer
-                return url.format({
-                    protocol: dvs.https ? "https" : "http",
-                    host: dvs.host ? dvs.host : "localhost",
-                    port: dvs.port
-                })
-            } else {
-                return null
-            }
-        })
+        if (cfg.devServer) {
+            let dvs = cfg.devServer
+            __DEV_SERVER__ = url.format({
+                protocol: dvs.https ? "https" : "http",
+                hostname: dvs.host ? dvs.host : "localhost",
+                port: dvs.port
+            })
+        } else {
+            __DEV_SERVER__ = null
+        }
     }
+
+    defs.set("__DEV_SERVER__", () => {
+        if (options.isServing) {
+            return __DEV_SERVER__
+        } else {
+            return null
+        }
+    })
 })
