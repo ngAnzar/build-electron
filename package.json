@@ -7,7 +7,7 @@
     "email": "vetesi.zoltan@gmail.com"
   },
   "bin": {
-    "anzar-electron": "src/cli"
+    "anzar-electron": "src/cli.js"
   },
   "babel": {
     "presets": [
