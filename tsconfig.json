@@ -1,8 +1,9 @@
 {
     "extends": "./node_modules/@anzar/build/tsconfig.json",
     "compilerOptions": {
-        "target": "es6",
-        "module": "es6",
-        "moduleResolution": "node"
+        "target": "es2017",
+        "module": "esnext",
+        "moduleResolution": "node",
+        "inlineSources": true
     }
 }
